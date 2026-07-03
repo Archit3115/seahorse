@@ -44,6 +44,11 @@ Seahorse separates **planning** from **doing**. One advisor designs; cheaper exe
 **Fable effort policy:** default **low/medium**; escalate to **high/xhigh** only for genuinely hard
 architecture, thorny trade-offs, or high-blast-radius plans. Do not burn xhigh on routine planning.
 
+**GPT/Codex fallback:** the GPT-specialist role needs `codex login`. When Codex is NOT authenticated
+(or unavailable), do NOT skip the task — **fall back to an Opus adversarial/skeptic agent** and complete
+it in-house, then note that a GPT second opinion is still available once the user runs `codex login`.
+Never let an unavailable specialist model block a verification/review step.
+
 **Mechanism, honestly:** a running session cannot silently swap its own model. Routing is realized by
 (a) spawning subagents / Workflow stages with an explicit `model` (Fable for advisor stages, Sonnet/Opus
 for executor stages), or (b) telling the user to `/model` when the whole session should change tier.
