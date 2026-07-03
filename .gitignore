@@ -1,0 +1,5 @@
+knowledge/
+*.pdf
+*.aux
+*.log
+.DS_Store

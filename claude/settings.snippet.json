@@ -1,0 +1,13 @@
+{
+  "_comment": "Merge the hooks block into ~/.claude/settings.json. Do not overwrite the whole file.",
+  "hooks": {
+    "SessionStart": [
+      {
+        "matcher": "startup|resume|clear",
+        "hooks": [
+          { "type": "command", "command": "bash ~/.claude/hooks/seahorse-bootstrap.sh" }
+        ]
+      }
+    ]
+  }
+}
