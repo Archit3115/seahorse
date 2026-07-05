@@ -1,0 +1,13 @@
+{
+  "name": "seahorse",
+  "version": "0.1.0",
+  "description": "Advisor→executor orchestration for Claude Code. One architect model (Fable) plans, cheaper specialists (Sonnet/Opus) build, GPT reviews — routed to the model that does each chunk best, under a token diet, over a live knowledge graph, with typeset output.",
+  "author": {
+    "name": "Archit Srivastava",
+    "url": "https://github.com/Archit3115"
+  },
+  "homepage": "https://github.com/Archit3115/seahorse",
+  "repository": "https://github.com/Archit3115/seahorse",
+  "license": "MIT",
+  "keywords": ["orchestration", "advisor-executor", "model-routing", "agents", "swe-bench"]
+}

@@ -1,0 +1,14 @@
+{
+  "_comment": "When you open Claude Code inside this cloned repo and trust the folder, Claude Code sees this marketplace + enabled plugins and offers to install them. If it doesn't prompt on your version, run the two commands in the README. This only affects sessions started in this directory.",
+  "extraKnownMarketplaces": [
+    {
+      "name": "seahorse",
+      "source": { "type": "github", "repo": "Archit3115/seahorse" }
+    }
+  ],
+  "enabledPlugins": [
+    "seahorse@seahorse",
+    "caveman@seahorse",
+    "ponytail@seahorse"
+  ]
+}

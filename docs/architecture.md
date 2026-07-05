@@ -68,7 +68,7 @@ sequenceDiagram
 
 | Role | Model | Effort | Mechanism |
 |------|-------|--------|-----------|
-| Advisor / architect | Fable 5 → Opus 4.8 1M | low/med · high/xhigh when hard | `advisor` agent, `/plan` |
+| Advisor / architect | Fable 5 → Opus 4.8 1M | low/med · high/xhigh when hard | `advisor` agent, `/seahorse` |
 | Researcher | Opus 4.8 1M | high | `researcher` agent, `/deep-research` |
 | Heavy builder | Opus 4.8 1M | med/high | `builder-heavy` agent |
 | Light builder | Sonnet 5 | low/med | `builder-light` agent |

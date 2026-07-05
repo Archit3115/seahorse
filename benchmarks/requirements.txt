@@ -1,0 +1,8 @@
+# Seahorse SWE-bench harness — Python deps.
+# run.py --select / full run:  needs the dataset loader.
+# accuracy eval:               needs swebench (+ a working Docker daemon).
+# score.py + run.py --dry-run: STDLIB ONLY — no install required.
+
+datasets>=2.19          # load princeton-nlp/SWE-bench_Verified
+huggingface-hub>=0.23
+swebench>=3.0           # official evaluation harness (python -m swebench.harness.run_evaluation)

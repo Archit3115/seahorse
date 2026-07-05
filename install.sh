@@ -15,19 +15,21 @@ mkdir -p "$CLAUDE_DIR/hooks" "$CLAUDE_DIR/agents" "$CLAUDE_DIR/commands"
 say "Installing global CLAUDE.md"
 GLOBAL="$CLAUDE_DIR/CLAUDE.md"
 if [ -f "$GLOBAL" ] && grep -q "Seahorse — Global Claude Code Operating Contract" "$GLOBAL"; then
-  cp "$REPO/claude/CLAUDE.global.md" "$GLOBAL"          # already ours → refresh
+  cp "$REPO/contract/CLAUDE.global.md" "$GLOBAL"          # already ours → refresh
 else
   # preserve any pre-existing lines (e.g. graphify) by appending them below ours
-  { cat "$REPO/claude/CLAUDE.global.md";
+  { cat "$REPO/contract/CLAUDE.global.md";
     if [ -f "$GLOBAL" ]; then printf '\n---\n<!-- preserved from prior CLAUDE.md -->\n'; cat "$GLOBAL"; fi
   } > "$GLOBAL.seahorse.tmp" && mv "$GLOBAL.seahorse.tmp" "$GLOBAL"
 fi
 
 # --- Agents, commands, hook ---------------------------------------------------
+# Commands include seahorse.md -> gives you the bare /seahorse command (the plugin
+# install would namespace it as /seahorse:seahorse; the standalone copy keeps /seahorse).
 say "Installing agents, commands, hook"
-cp "$REPO"/claude/agents/*.md   "$CLAUDE_DIR/agents/"
-cp "$REPO"/claude/commands/*.md "$CLAUDE_DIR/commands/"
-cp "$REPO/claude/hooks/seahorse-bootstrap.sh" "$CLAUDE_DIR/hooks/"
+cp "$REPO"/agents/*.md   "$CLAUDE_DIR/agents/"
+cp "$REPO"/commands/*.md "$CLAUDE_DIR/commands/"
+cp "$REPO/hooks/seahorse-bootstrap.sh" "$CLAUDE_DIR/hooks/"
 chmod +x "$CLAUDE_DIR/hooks/seahorse-bootstrap.sh"
 
 # --- Merge SessionStart hook into settings.json -------------------------------
@@ -56,5 +58,7 @@ command -v tectonic >/dev/null || say "  (missing) tectonic — install for LaTe
 command -v graphify >/dev/null || say "  (missing) graphify — 'uv tool install graphifyy && graphify install --platform claude'"
 command -v codex    >/dev/null || say "  (missing) codex CLI — 'npm i -g @openai/codex' then 'codex login'"
 
-say "Done. Restart Claude Code. Plugins: run once ->"
-echo "     claude plugin install caveman@caveman ponytail@ponytail codex@openai-codex"
+say "Done. Restart Claude Code. /seahorse is now available."
+say "Bundled token-discipline plugins (caveman + ponytail) — install once:"
+echo "     claude plugin marketplace add Archit3115/seahorse"
+echo "     claude plugin install caveman@seahorse ponytail@seahorse"

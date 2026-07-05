@@ -1,0 +1,17 @@
+{
+  "hooks": {
+    "SessionStart": [
+      {
+        "matcher": "startup|resume|clear",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "bash \"${CLAUDE_PLUGIN_ROOT}/hooks/seahorse-activate.sh\"",
+            "timeout": 5,
+            "statusMessage": "Activating Seahorse orchestration..."
+          }
+        ]
+      }
+    ]
+  }
+}

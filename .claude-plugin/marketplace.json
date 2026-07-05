@@ -1,0 +1,29 @@
+{
+  "$schema": "https://anthropic.com/claude-code/marketplace.schema.json",
+  "name": "seahorse",
+  "description": "Seahorse — advisor→executor orchestration for Claude Code, bundled with the caveman (talk-less) and ponytail (write-less-code) token-discipline plugins.",
+  "owner": {
+    "name": "Archit Srivastava",
+    "url": "https://github.com/Archit3115"
+  },
+  "plugins": [
+    {
+      "name": "seahorse",
+      "description": "Advisor→executor model routing: Fable plans, Sonnet/Opus build, GPT reviews. Ships the /seahorse advisor loop, researcher, and builder agents.",
+      "source": "./",
+      "category": "orchestration"
+    },
+    {
+      "name": "caveman",
+      "description": "Talk like caveman. Cut ~65% output tokens (measured) while keeping full technical accuracy. Vendored fork (MIT, Julius Brussee).",
+      "source": "./vendor/caveman",
+      "category": "productivity"
+    },
+    {
+      "name": "ponytail",
+      "description": "Write less code. Forces the laziest solution that works — stdlib and native before dependencies, one line before fifty. Vendored fork (MIT, Dietrich Gebert).",
+      "source": "./vendor/ponytail",
+      "category": "productivity"
+    }
+  ]
+}

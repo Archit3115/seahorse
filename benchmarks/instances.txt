@@ -1,0 +1,44 @@
+# Pinned stratified subset of SWE-bench Verified (princeton-nlp/SWE-bench_Verified).
+#
+# Format:  <instance_id>  <stratum>        (whitespace separated; # = comment)
+#   stratum ∈ {short, long}
+#
+# STRATUM PROXY (see README "Dataset & stratification"):
+#   primary  = the dataset's `difficulty` annotation
+#              short = "<15 min fix" | "15 min - 1 hour"
+#              long  = "1-4 hours"   | ">4 hours"
+#   fallback = gold-patch size (files touched / lines changed) when difficulty is absent.
+#   The label pinned here IS the scoring truth; regenerate authoritatively with:
+#       python run.py --select 24 --seed 0     # rewrites this file from the live dataset
+#   Validate every id actually exists in the split with:
+#       python run.py --validate
+#
+# The list below is a seed sample; --validate before a real run and drop any miss.
+
+# ---- short-running stratum ----
+astropy__astropy-14182        short
+django__django-11099          short
+django__django-13230          short
+django__django-14382          short
+django__django-16041          short
+matplotlib__matplotlib-23964  short
+scikit-learn__scikit-learn-13439  short
+sympy__sympy-13480            short
+sphinx-doc__sphinx-8595       short
+pytest-dev__pytest-11143      short
+pylint-dev__pylint-7228       short
+psf__requests-2317            short
+
+# ---- long-running stratum ----
+astropy__astropy-12907        long
+django__django-11133          long
+django__django-12983          long
+django__django-16595          long
+matplotlib__matplotlib-25332  long
+scikit-learn__scikit-learn-14894  long
+sympy__sympy-24152            long
+sympy__sympy-20590            long
+sphinx-doc__sphinx-8721       long
+pytest-dev__pytest-5227       long
+pylint-dev__pylint-7080       long
+django__django-15400          long
