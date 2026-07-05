@@ -118,12 +118,20 @@ def to_markdown(rows):
     sep = "|" + "|".join(["---"] * 9) + "|"
     lines = [hdr, sep]
     for r in rows:
-        lines.append("| {condition} | {stratum} | {n} | {acc} | {cost} | {intok} | "
-                     "{outtok} | {cache} | {wall} |".format(
+        # seahorse token columns are the ADVISOR loop only — nested builder subagent
+        # contexts are not in the top-level `usage`. Cost (total_cost_usd) IS the full
+        # rollup, so compare conditions on cost, not tokens, for the seahorse row.
+        star = "*" if r["condition"] == "seahorse" else ""
+        lines.append("| {condition} | {stratum} | {n} | {acc} | {cost} | {intok}{star} | "
+                     "{outtok}{star} | {cache} | {wall} |".format(
             condition=r["condition"], stratum=r["stratum"], n=r["n"],
             acc=fmt(r["acc"], "pct"), cost=fmt(r["cost"], "usd"),
             intok=fmt(r["in_tok"], "int"), outtok=fmt(r["out_tok"], "int"),
-            cache=fmt(r["cache"], "int"), wall=fmt(r["wall"], "s")))
+            cache=fmt(r["cache"], "int"), wall=fmt(r["wall"], "s"), star=star))
+    lines.append("")
+    lines.append("\\* seahorse token counts are advisor-loop only (nested builder "
+                 "subagent tokens are not in top-level `usage`); compare cost, not tokens. "
+                 "`total_cost_usd` is the full rollup and is accurate for all conditions.")
     return "\n".join(lines)
 
 
