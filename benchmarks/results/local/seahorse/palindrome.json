@@ -1,0 +1,49 @@
+{
+  "task": "palindrome",
+  "stratum": "short",
+  "condition": "seahorse",
+  "entry_model": "claude-fable-5",
+  "wall_ms": 61765,
+  "exit_code": 0,
+  "timed_out": false,
+  "files_written": [
+    "palindrome.py"
+  ],
+  "raw_stdout_head": "{\"type\":\"result\",\"subtype\":\"success\",\"is_error\":false,\"api_error_status\":null,\"duration_ms\":58774,\"duration_api_ms\":57912,\"ttft_ms\":25938,\"ttft_stream_ms\":19145,\"time_to_request_ms\":84,\"num_turns\":3,\"result\":\"Done. Loop complete:\\n\\n- **Advise:** one chunk, mechanical \u2014 routed to `builder-light` (Sonnet).\\n- **Delegate:** builder wrote `palindrome.py` \u2014 `is_palindrome` filters to alphanumerics via",
+  "check_ok": true,
+  "check_tail": "OK\n",
+  "parse_ok": true,
+  "billed_usd": 0.7910977,
+  "priced_usd": 0.7894258,
+  "priced_billed_usd": 0.7910977,
+  "tokens": {
+    "input": 14231,
+    "output": 1957,
+    "cache_read": 102225,
+    "cache_creation": 36069,
+    "total": 154482
+  },
+  "per_model": {
+    "claude-fable-5": {
+      "priced_usd": 0.720841,
+      "billed_usd": 0.7208410000000001,
+      "input": 14225,
+      "output": 1454,
+      "cache_read": 74471,
+      "cache_creation": 21571
+    },
+    "claude-sonnet-5": {
+      "priced_usd": 0.0685848,
+      "billed_usd": 0.07025669999999999,
+      "input": 6,
+      "output": 503,
+      "cache_read": 27754,
+      "cache_creation": 14498
+    }
+  },
+  "num_turns": 3,
+  "models_used": [
+    "claude-fable-5",
+    "claude-sonnet-5"
+  ]
+}

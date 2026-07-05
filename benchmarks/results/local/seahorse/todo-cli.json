@@ -1,0 +1,50 @@
+{
+  "task": "todo-cli",
+  "stratum": "long",
+  "condition": "seahorse",
+  "entry_model": "claude-fable-5",
+  "wall_ms": 106751,
+  "exit_code": 0,
+  "timed_out": false,
+  "files_written": [
+    "test_todo.py",
+    "todo.py"
+  ],
+  "raw_stdout_head": "{\"type\":\"result\",\"subtype\":\"success\",\"is_error\":false,\"api_error_status\":null,\"duration_ms\":24133,\"duration_api_ms\":135429,\"ttft_ms\":4988,\"ttft_stream_ms\":3051,\"time_to_request_ms\":72,\"num_turns\":4,\"result\":\"Loop complete. Goal condition met.\\n\\n**Result:** `todo.py` (66 lines) + `test_todo.py` (61 lines) in working tree. `python3 test_todo.py -v` \u2014 2/2 OK. No pytest installed here, so plain-pytho",
+  "check_ok": true,
+  "check_tail": "..\n----------------------------------------------------------------------\nRan 2 tests in 0.289s\n\nOK\n",
+  "parse_ok": true,
+  "billed_usd": 1.35260575,
+  "priced_usd": 1.333284,
+  "priced_billed_usd": 1.35260575,
+  "tokens": {
+    "input": 14524,
+    "output": 7833,
+    "cache_read": 304182,
+    "cache_creation": 49118,
+    "total": 375657
+  },
+  "per_model": {
+    "claude-fable-5": {
+      "priced_usd": 1.210747,
+      "billed_usd": 1.210747,
+      "input": 14508,
+      "output": 5109,
+      "cache_read": 200717,
+      "cache_creation": 30475
+    },
+    "claude-sonnet-5": {
+      "priced_usd": 0.122537,
+      "billed_usd": 0.14185875000000003,
+      "input": 16,
+      "output": 2724,
+      "cache_read": 103465,
+      "cache_creation": 18643
+    }
+  },
+  "num_turns": 4,
+  "models_used": [
+    "claude-fable-5",
+    "claude-sonnet-5"
+  ]
+}

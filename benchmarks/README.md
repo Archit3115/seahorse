@@ -1,16 +1,57 @@
-# Seahorse SWE-bench harness — methodology & design
+# Seahorse benchmark harness — methodology & design
 
-Measures Claude Code coding performance under **4 conditions** on a stratified subset of
-**SWE-bench Verified**, capturing **cost, tokens, wall-clock, and accuracy**, broken out by
-**long- vs short-running** tasks. The point is a fair apples-to-apples read on whether the
-Seahorse advisor→executor orchestration beats the same models used solo.
+Measures Claude Code coding performance under **4 conditions** (fable / opus / sonnet solo vs.
+**seahorse** orchestration), capturing **cost, tokens, wall-clock, and accuracy**, split by
+**short- vs long-running** tasks. The point is a fair apples-to-apples read on whether the Seahorse
+advisor→executor orchestration beats the same models used solo.
+
+## Two tracks
+
+| Track | Runner | Measures | Needs |
+|-------|--------|----------|-------|
+| **Token-priced** (default, cheap) | [`run_local.py`](run_local.py) → [`score_local.py`](score_local.py) | **tokens → equivalent USD** (rate card), cross-checked vs billed; short/long | just the `claude` CLI |
+| **SWE-bench** (accuracy) | [`run.py`](run.py) → swebench → [`score.py`](score.py) | official resolved-rate on real GitHub issues + cost | Docker + `swebench` + `datasets` |
+
+The token-priced track is the answer to *"benchmark by tokens, convert to money, don't run a bespoke
+money meter."* It needs no Docker and produces real numbers in minutes. **Measured results:
+[`results/RESULTS.md`](results/RESULTS.md).**
 
 ```
+# token-priced track
+run_local.py   run self-contained tasks with `claude -p`, read modelUsage   -> results/local/<cond>/<task>.json
+pricing.py     tokens x public rate card -> equivalent USD (== billed check)
+score_local.py aggregate -> priced table + CSV + Mermaid                     -> results/local/summary.{md,csv,mmd}
+
+# SWE-bench track
 run.py     generate patches with `claude -p`, capture metrics + diffs   -> results/<cond>/<id>.json
-                                                                          -> results/<cond>/predictions.jsonl
 swebench   official docker eval of predictions.jsonl                      -> results/<cond>/eval.json
 score.py   join metrics x eval -> table + CSV + Mermaid                   -> results/summary.{md,csv,mmd}
 ```
+
+## Token → equivalent money (`pricing.py`)
+
+The token-priced metric multiplies each model's captured token counts by a **published per-MTok rate
+card** (first-party Claude API, global, standard tier — captured 2026-07-05 from the docs). The CLI's
+`--output-format json` emits a `modelUsage` map broken down **per model**, so:
+
+- **subagent tokens are counted** — the seahorse advisor (Fable) and its builders (Sonnet/Opus) each
+  appear under their own model key, fixing the classic "subagent tokens hide from top-level `usage`" gap;
+- pricing is **validated against ground truth** — priced cost reproduces the CLI's own `total_cost_usd`
+  to the cent for solo runs (see `pricing.py::demo()` and RESULTS.md).
+
+`score_local.py` re-prices from the stored per-model token counts every time it runs, so correcting the
+rate card retroactively fixes past runs with no re-spend.
+
+## Guarded headless mode (the safety model)
+
+Headless `claude -p` can't answer permission prompts, so runs need auto-approval. Rather than raw
+`--dangerously-skip-permissions` (unrestricted egress), `run_local.py` pairs it with a hard
+**denylist** (`DISALLOWED_TOOLS`): deletion (`rm`/`rmdir`/`mv`), privilege (`sudo`/`chmod`/`chown`),
+network (`curl`/`wget`/`nc`/`ssh`), package managers (`pip`/`npm`/`brew`/`apt`), `git`, `docker`, and
+`WebFetch`/`WebSearch`. **Deny rules win even under skip-permissions**, so file writes + `python3` (the
+only ingress a coding task needs) run freely while everything destructive is blocked — verified by an
+agent instructed to `rm -rf .`, which is denied while the scratch dir survives. Each run is also confined
+to a fresh empty scratch dir off the project tree.
 
 ## The 4 conditions
 
@@ -142,17 +183,28 @@ Budget the full 4-condition sweep at **~$40–60** and cap defensively (`--max-u
 
 | file | purpose |
 |------|---------|
-| `run.py` | generation runner (`--dry-run`, `--validate`, `--select`, `--max-usd`, idempotent) |
+| `pricing.py` | token → equivalent USD rate card + `price_modelusage()`; `demo()` self-check vs billed |
+| `run_local.py` | token-priced runner — no Docker, guarded headless mode, self-contained tasks |
+| `score_local.py` | aggregate `results/local/` → priced table + CSV + Mermaid; re-prices from stored tokens |
+| `run.py` | SWE-bench generation runner (`--dry-run`, `--validate`, `--select`, `--max-usd`, idempotent) |
 | `score.py` | aggregate `results/` → markdown + CSV + Mermaid; no-data safe |
 | `seahorse_prompt.md` | the exact, auditable Seahorse advisor-loop prompt (fairness-locked) |
 | `instances.txt` | pinned stratified subset (id + short/long) |
 | `diagrams.md` | Mermaid architecture / pipeline / stratification diagrams |
-| `requirements.txt` | `datasets`, `swebench` (only for real runs; dry-run/score are stdlib) |
-| `results/PILOT.md` | host availability check + how to run the pilot |
+| `requirements.txt` | `datasets`, `swebench` (only for the SWE-bench track; token-priced track is stdlib) |
+| `results/RESULTS.md` | **measured** token-priced results (2026-07-05) |
+| `results/PILOT.md` | host availability check + how to run the SWE-bench pilot |
 
 ## Quick start
 
 ```bash
+# token-priced track (no Docker, minutes, ~$5 for the 8-run pilot)
+python3 pricing.py                       # rate-card self-check (offline)
+python3 run_local.py --dry-run           # plan + guardrails, zero spend
+python3 run_local.py --max-usd 10        # 4 conditions x 2 tasks, cost-capped
+python3 score_local.py                   # priced table + CSV + Mermaid
+
+# SWE-bench accuracy track (needs Docker + swebench)
 python3 run.py --dry-run                 # plan, zero deps
 python3 -m pip install -r requirements.txt
 python3 run.py --validate                # ids exist in the split?

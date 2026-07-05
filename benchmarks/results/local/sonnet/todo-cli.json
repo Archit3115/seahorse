@@ -1,0 +1,41 @@
+{
+  "task": "todo-cli",
+  "stratum": "long",
+  "condition": "sonnet",
+  "entry_model": "claude-sonnet-5",
+  "wall_ms": 49792,
+  "exit_code": 0,
+  "timed_out": false,
+  "files_written": [
+    "test_todo.py",
+    "todo.py"
+  ],
+  "raw_stdout_head": "{\"type\":\"result\",\"subtype\":\"success\",\"is_error\":false,\"api_error_status\":null,\"duration_ms\":48283,\"duration_api_ms\":47455,\"ttft_ms\":4830,\"ttft_stream_ms\":1986,\"time_to_request_ms\":81,\"num_turns\":7,\"result\":\"Manual smoke blocked by permission \u2014 fine, unit tests already cover full flow (7/7 pass).\\n\\nDone. `todo.py` (stdlib-only, argparse, JSON persist to `todo.json`) + `test_todo.py` (unittest, 7 t",
+  "check_ok": true,
+  "check_tail": "error: no task with id 99\nerror: no task with id 1\nerror: no task with id 99\n.......\n----------------------------------------------------------------------\nRan 7 tests in 0.017s\n\nOK\n",
+  "parse_ok": true,
+  "billed_usd": 0.3194292,
+  "priced_usd": 0.2129528,
+  "priced_billed_usd": 0.3194292,
+  "tokens": {
+    "input": 14,
+    "output": 3999,
+    "cache_read": 310574,
+    "cache_creation": 27705,
+    "total": 342292
+  },
+  "per_model": {
+    "claude-sonnet-5": {
+      "priced_usd": 0.2129528,
+      "billed_usd": 0.3194292,
+      "input": 14,
+      "output": 3999,
+      "cache_read": 310574,
+      "cache_creation": 27705
+    }
+  },
+  "num_turns": 7,
+  "models_used": [
+    "claude-sonnet-5"
+  ]
+}

@@ -1,6 +1,8 @@
 /knowledge/
 /graphify-out/
 /okf/
+# benchmark scratch dirs (regenerated each run); the per-run result JSON is kept
+/benchmarks/results/local/_work/
 *.pdf
 *.aux
 *.log

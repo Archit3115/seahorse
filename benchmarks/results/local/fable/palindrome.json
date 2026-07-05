@@ -1,0 +1,40 @@
+{
+  "task": "palindrome",
+  "stratum": "short",
+  "condition": "fable",
+  "entry_model": "claude-fable-5",
+  "wall_ms": 20723,
+  "exit_code": 0,
+  "timed_out": false,
+  "files_written": [
+    "palindrome.py"
+  ],
+  "raw_stdout_head": "{\"type\":\"result\",\"subtype\":\"success\",\"is_error\":false,\"api_error_status\":null,\"duration_ms\":19075,\"duration_api_ms\":18392,\"ttft_ms\":5794,\"ttft_stream_ms\":2959,\"time_to_request_ms\":68,\"num_turns\":3,\"result\":\"`palindrome.py` done, self-check pass (`ok`). Filters to alphanumerics lowercase, compares reverse. `demo()` asserts Panama, empty string, Nixon, negative case.\",\"stop_reason\":\"end_turn\",\"sessi",
+  "check_ok": true,
+  "check_tail": "ok\n",
+  "parse_ok": true,
+  "billed_usd": 0.606175,
+  "priced_usd": 0.606175,
+  "priced_billed_usd": 0.606175,
+  "tokens": {
+    "input": 12599,
+    "output": 629,
+    "cache_read": 71615,
+    "cache_creation": 18856,
+    "total": 103699
+  },
+  "per_model": {
+    "claude-fable-5": {
+      "priced_usd": 0.606175,
+      "billed_usd": 0.606175,
+      "input": 12599,
+      "output": 629,
+      "cache_read": 71615,
+      "cache_creation": 18856
+    }
+  },
+  "num_turns": 3,
+  "models_used": [
+    "claude-fable-5"
+  ]
+}

@@ -1,0 +1,13 @@
+condition,stratum,n,check_pass_rate,mean_priced_usd,mean_billed_usd,mean_total_tokens,mean_wall_ms,models_used
+fable,short,1,1.0,0.606175,0.606175,103699,20723,claude-fable-5
+fable,long,1,1.0,0.812732,0.812732,112947,51193,claude-fable-5
+fable,all,2,1.0,0.709453,0.709453,108323,35958,claude-fable-5
+opus,short,1,1.0,0.289871,0.289871,100162,14403,claude-opus-4-8
+opus,long,1,1.0,0.337836,0.337836,104175,39252,claude-opus-4-8
+opus,all,2,1.0,0.313853,0.313853,102168,26828,claude-opus-4-8
+sonnet,short,1,1.0,0.181933,0.181934,135930,15056,claude-sonnet-5
+sonnet,long,1,1.0,0.319429,0.319429,342292,49792,claude-sonnet-5
+sonnet,all,2,1.0,0.250681,0.250681,239111,32424,claude-sonnet-5
+seahorse,short,1,1.0,0.823718,0.791098,154482,61765,claude-fable-5 claude-sonnet-5
+seahorse,long,1,1.0,1.394553,1.352606,375657,106751,claude-fable-5 claude-sonnet-5
+seahorse,all,2,1.0,1.109135,1.071852,265070,84258,claude-fable-5 claude-sonnet-5

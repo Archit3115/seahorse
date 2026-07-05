@@ -1,0 +1,41 @@
+{
+  "task": "todo-cli",
+  "stratum": "long",
+  "condition": "fable",
+  "entry_model": "claude-fable-5",
+  "wall_ms": 51193,
+  "exit_code": 0,
+  "timed_out": false,
+  "files_written": [
+    "test_todo.py",
+    "todo.py"
+  ],
+  "raw_stdout_head": "{\"type\":\"result\",\"subtype\":\"success\",\"is_error\":false,\"api_error_status\":null,\"duration_ms\":49562,\"duration_api_ms\":48403,\"ttft_ms\":20869,\"ttft_stream_ms\":5203,\"time_to_request_ms\":65,\"num_turns\":4,\"result\":\"Done. `todo.py` + `test_todo.py` written; `python3 test_todo.py` passes (\\\"ok\\\"). pytest not installed on system Python, but plain-run path works as required (pytest picks up `test_end_to_end`",
+  "check_ok": true,
+  "check_tail": "ok\n",
+  "parse_ok": true,
+  "billed_usd": 0.812732,
+  "priced_usd": 0.812732,
+  "priced_billed_usd": 0.812732,
+  "tokens": {
+    "input": 12796,
+    "output": 3433,
+    "cache_read": 74802,
+    "cache_creation": 21916,
+    "total": 112947
+  },
+  "per_model": {
+    "claude-fable-5": {
+      "priced_usd": 0.812732,
+      "billed_usd": 0.812732,
+      "input": 12796,
+      "output": 3433,
+      "cache_read": 74802,
+      "cache_creation": 21916
+    }
+  },
+  "num_turns": 4,
+  "models_used": [
+    "claude-fable-5"
+  ]
+}

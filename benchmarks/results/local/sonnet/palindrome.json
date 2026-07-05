@@ -1,0 +1,40 @@
+{
+  "task": "palindrome",
+  "stratum": "short",
+  "condition": "sonnet",
+  "entry_model": "claude-sonnet-5",
+  "wall_ms": 15056,
+  "exit_code": 0,
+  "timed_out": false,
+  "files_written": [
+    "palindrome.py"
+  ],
+  "raw_stdout_head": "{\"type\":\"result\",\"subtype\":\"success\",\"is_error\":false,\"api_error_status\":null,\"duration_ms\":13374,\"duration_api_ms\":12718,\"ttft_ms\":2736,\"ttft_stream_ms\":1943,\"time_to_request_ms\":64,\"num_turns\":3,\"result\":\"palindrome.py made, demo pass.\",\"stop_reason\":\"end_turn\",\"session_id\":\"0a45f432-adf9-4a4d-bd6c-6cf5e6c60664\",\"total_cost_usd\":0.18193350000000003,\"usage\":{\"input_tokens\":6,\"cache_creation_input",
+  "check_ok": true,
+  "check_tail": "demo passed\n",
+  "parse_ok": true,
+  "billed_usd": 0.18193350000000003,
+  "priced_usd": 0.121289,
+  "priced_billed_usd": 0.18193350000000003,
+  "tokens": {
+    "input": 6,
+    "output": 470,
+    "cache_read": 111905,
+    "cache_creation": 23549,
+    "total": 135930
+  },
+  "per_model": {
+    "claude-sonnet-5": {
+      "priced_usd": 0.121289,
+      "billed_usd": 0.18193350000000003,
+      "input": 6,
+      "output": 470,
+      "cache_read": 111905,
+      "cache_creation": 23549
+    }
+  },
+  "num_turns": 3,
+  "models_used": [
+    "claude-sonnet-5"
+  ]
+}
