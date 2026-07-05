@@ -1,4 +1,6 @@
-knowledge/
+/knowledge/
+/graphify-out/
+/okf/
 *.pdf
 *.aux
 *.log

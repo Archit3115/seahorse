@@ -74,6 +74,11 @@ Research is a first-class, frequent workload. Route it to **Opus 4.8 (1M)**, hig
 - **Verify before asserting:** every non-obvious claim gets an independent check; cite sources.
 - Heavy audits/reviews/research may run under **ultracode** (multi-agent orchestration) when the user
   opts in — that is the moment to fan out finders + adversarial verifiers, not a solo pass.
+- **Optimize by loop, not by one-shot.** For "iteratively refine X until metric Y" work — tuning,
+  alignment, prompt/heuristic search — run the **autoresearch** loop (`/autoresearch`, pattern from
+  [github.com/karpathy/autoresearch](https://github.com/karpathy/autoresearch)): one hypothesis, one
+  file edit, one fixed-budget experiment, score a single metric, keep-or-revert, log to a scoreboard,
+  repeat. One variable per iteration; a hard budget; a single comparable metric; honest keep/revert.
 
 ---
 
@@ -82,10 +87,12 @@ Research is a first-class, frequent workload. Route it to **Opus 4.8 (1M)**, hig
 Every non-trivial project carries a **knowledge graph** so the agent reasons over structure instead of
 re-grepping each time.
 
-- Build/refresh with **graphify**: `graphify .` → `knowledge/graphify-out/` (`graph.html`, `GRAPH_REPORT.md`,
-  `graph.json`). Query with `graphify query "..."` and `graphify path A B` **before** manual file sweeps.
+- Build/refresh with **graphify**: `graphify .` → `graphify-out/` (`graph.html`, `GRAPH_REPORT.md`,
+  `graph.json`); `graphify update .` for a fast AST-only refresh after edits (no LLM cost). Query with
+  `graphify query "..."`, `graphify explain "..."`, and `graphify path A B` **before** manual file sweeps.
 - Emit/keep the graph in **OKF** (Open Knowledge Format, GoogleCloudPlatform/knowledge-catalog `okf/SPEC.md`)
-  as the portable interchange shape when exporting or sharing the graph.
+  when exporting or sharing: `/kg export` → `python3 tools/okf_export.py` writes one Markdown+frontmatter
+  file per entity (required `type` field) to `okf/`. `graphify-out/` and `okf/` are build artifacts — gitignore them.
 - Install once per machine: `uv tool install graphifyy && graphify install --platform claude`; enable
   auto-consult with `graphify claude install`; auto-rebuild on commit with `graphify hook install`.
 
@@ -117,6 +124,8 @@ starting points). Do not add secrets to the repo; reference them via CI secrets.
 - **`/workflows` (Workflow tool)** — deterministic fan-out/pipeline orchestration. Advisor plans it,
   executors run the stages, verifiers gate it. Use for review, migration, multi-source research, audits.
 - **`/deep-research`** — the research harness (see §3).
+- **`/autoresearch <goal>`** — the iterative refine-until-metric loop (see §3). Holds a `program.md`
+  goal + single metric and a `scoreboard.md` history; one change per iteration, keep-or-revert.
 - Do not invoke Workflow/ultracode unless the user has opted in (keyword, prior standing opt-in, or an
   explicit ask). Otherwise size a normal subagent fan-out.
 
@@ -130,7 +139,7 @@ signals this. Early in the session (before deep work), do this once:
 1. **Inspect** the stack (languages, package manager, test runner, framework, deploy target).
 2. **Generate** `.claude/CLAUDE.md` from the Seahorse project template — filled in for *this* repo:
    layout, run/test commands, the §2 model-routing table, KG location, output rules, CI, hard rules.
-3. **Knowledge graph** — if graphify is installed, `graphify .` into `knowledge/`; else record the intent
+3. **Knowledge graph** — if graphify is installed, `graphify .` into `graphify-out/`; else record the intent
    in the project contract.
 4. **CI** — ensure `.github/workflows/` matches the stack (§6); scaffold from templates if absent.
 5. Then continue the user's actual task. Keep the project contract honest as the work evolves.

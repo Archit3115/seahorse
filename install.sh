@@ -9,7 +9,7 @@ export PATH="$HOME/.local/bin:$PATH"
 
 say() { printf '\033[1;36m›\033[0m %s\n' "$*"; }
 
-mkdir -p "$CLAUDE_DIR/hooks" "$CLAUDE_DIR/agents" "$CLAUDE_DIR/commands"
+mkdir -p "$CLAUDE_DIR/hooks" "$CLAUDE_DIR/agents" "$CLAUDE_DIR/commands" "$CLAUDE_DIR/skills" "$CLAUDE_DIR/tools"
 
 # --- Global CLAUDE.md (merge graphify's trigger line if present) --------------
 say "Installing global CLAUDE.md"
@@ -31,6 +31,15 @@ cp "$REPO"/agents/*.md   "$CLAUDE_DIR/agents/"
 cp "$REPO"/commands/*.md "$CLAUDE_DIR/commands/"
 cp "$REPO/hooks/seahorse-bootstrap.sh" "$CLAUDE_DIR/hooks/"
 chmod +x "$CLAUDE_DIR/hooks/seahorse-bootstrap.sh"
+
+# Skills (autoresearch) + tools (OKF exporter). /kg export calls the installed exporter.
+say "Installing skills + tools"
+cp -R "$REPO"/skills/. "$CLAUDE_DIR/skills/" 2>/dev/null || true   # /. copies contents, no re-run nesting
+cp "$REPO"/tools/*.py  "$CLAUDE_DIR/tools/"  2>/dev/null || true
+# point every installed doc's /kg export at the cwd-independent installed exporter path
+for f in "$CLAUDE_DIR/commands/kg.md" "$GLOBAL"; do
+  [ -f "$f" ] && sed -i.bak 's#python3 tools/okf_export.py#python3 ~/.claude/tools/okf_export.py#g' "$f" && rm -f "$f.bak"
+done
 
 # --- Merge SessionStart hook into settings.json -------------------------------
 say "Merging SessionStart hook into settings.json"

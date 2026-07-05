@@ -1,0 +1,64 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+jobs:
+  validate-plugin:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+      # `claude plugin validate` is the real check, but the CLI install can be
+      # flaky/unavailable in CI (network, npm registry auth). Try it, and if
+      # it's missing, fall back to a JSON sanity check instead of failing the job.
+      - name: Install Claude Code CLI (best-effort)
+        run: npm install -g @anthropic-ai/claude-code || echo "claude CLI install failed, will fall back"
+      - name: Validate plugin
+        run: |
+          if command -v claude >/dev/null 2>&1; then
+            claude plugin validate .
+          else
+            node -e "
+              const fs = require('fs');
+              const plugin = JSON.parse(fs.readFileSync('.claude-plugin/plugin.json', 'utf8'));
+              const marketplace = JSON.parse(fs.readFileSync('.claude-plugin/marketplace.json', 'utf8'));
+              if (!plugin.name || !plugin.description) throw new Error('plugin.json missing name/description');
+              if (!Array.isArray(marketplace.plugins) || marketplace.plugins.length === 0) throw new Error('marketplace.json missing plugins[]');
+              console.log('plugin.json and marketplace.json OK (fallback check)');
+            "
+          fi
+
+  shellcheck:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Run shellcheck
+        run: shellcheck hooks/*.sh install.sh
+
+  markdown-lint:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+      - name: Lint markdown
+        # config in .markdownlint.json (lenient — structure not style). Ignore vendored
+        # third-party docs and generated OKF example frontmatter.
+        run: npx --yes markdownlint-cli "**/*.md" --config .markdownlint.json --ignore vendor --ignore "benchmarks/results/**" --ignore "examples/okf/**" --ignore graphify-out --ignore okf --ignore knowledge
+
+  py-compile:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: py_compile benchmarks
+        run: python -m py_compile benchmarks/*.py

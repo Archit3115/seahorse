@@ -19,7 +19,7 @@ read -r -d '' MSG <<EOF || true
 SEAHORSE BOOTSTRAP — no project contract at ${root}/.claude/CLAUDE.md.
 Per ~/.claude/CLAUDE.md §8 (Project Bootstrap), do this ONCE early, then continue the task:
 1) inspect the stack; 2) generate a tailored .claude/CLAUDE.md from the Seahorse project template;
-3) build the knowledge graph (graphify . -> knowledge/); 4) ensure .github/workflows CI for the stack.
+3) build the knowledge graph (graphify . -> graphify-out/); 4) ensure .github/workflows CI for the stack.
 Do not overwrite an existing contract; do not scaffold outside ~/Work.
 EOF
 

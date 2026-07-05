@@ -28,7 +28,7 @@ Inherits the global §2 table. Project-specific overrides:
 - {{ROUTING_OVERRIDES}}
 
 ## Knowledge graph
-- Location: `knowledge/graphify-out/` (built with `graphify .`).
+- Location: `graphify-out/` (built with `graphify .`).
 - Rebuild trigger: {{KG_REBUILD}} (commit hook / manual).
 - Query before grepping: `graphify query "..."`.
 
