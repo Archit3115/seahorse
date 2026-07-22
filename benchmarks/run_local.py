@@ -89,6 +89,19 @@ TASKS = [
         "check": "python3 palindrome.py",
     },
     {
+        "id": "portfolio-netflix",
+        "stratum": "long",
+        "prompt": (
+            "Build a portfolio website for Archit Srivastava(me) and the "
+            "style needs to be as netflix."
+        ),
+        # proxy: did the run produce at least one HTML page?
+        "check": (
+            "python3 -c \"import glob,sys; "
+            "sys.exit(0 if glob.glob('**/*.html', recursive=True) else 1)\""
+        ),
+    },
+    {
         "id": "todo-cli",
         "stratum": "long",
         "prompt": (
@@ -197,10 +210,10 @@ def run_one(condition, task, timeout_s):
     return rec
 
 
-def do_dry_run(conditions):
-    n = len(conditions) * len(TASKS)
-    print(f"DRY RUN — {len(TASKS)} tasks x {len(conditions)} conditions = {n} runs\n")
-    for t in TASKS:
+def do_dry_run(conditions, tasks):
+    n = len(conditions) * len(tasks)
+    print(f"DRY RUN — {len(tasks)} tasks x {len(conditions)} conditions = {n} runs\n")
+    for t in tasks:
         for c in conditions:
             done = "DONE" if result_path(c, t["id"]).exists() else "todo"
             print(f"  [{done}] {c:8s} {t['stratum']:5s} {t['id']}")
@@ -212,11 +225,11 @@ def do_dry_run(conditions):
     print(f"\nguardrails (denied every run): {DISALLOWED_TOOLS}")
 
 
-def do_run(conditions, max_usd, timeout_s):
+def do_run(conditions, tasks, max_usd, timeout_s):
     for c in conditions:
         (RESULTS / c).mkdir(parents=True, exist_ok=True)
     spent = 0.0
-    for t in TASKS:
+    for t in tasks:
         for c in conditions:
             rp = result_path(c, t["id"])
             if rp.exists():
@@ -241,6 +254,8 @@ def do_run(conditions, max_usd, timeout_s):
 def main():
     ap = argparse.ArgumentParser(description="Seahorse local token-cost benchmark")
     ap.add_argument("--conditions", default=",".join(CONDITIONS))
+    ap.add_argument("--tasks", default=",".join(t["id"] for t in TASKS),
+                    help="comma-separated task ids to run (default: all)")
     ap.add_argument("--max-usd", type=float, default=10.0,
                     help="cumulative BILLED cost cap (safety); metric is priced_usd")
     ap.add_argument("--timeout", type=int, default=900, help="per-run wall timeout (s)")
@@ -252,9 +267,16 @@ def main():
     if bad:
         sys.exit(f"unknown condition(s): {bad}; valid: {list(CONDITIONS)}")
 
+    task_ids = [t.strip() for t in args.tasks.split(",") if t.strip()]
+    known = {t["id"]: t for t in TASKS}
+    bad = [t for t in task_ids if t not in known]
+    if bad:
+        sys.exit(f"unknown task(s): {bad}; valid: {list(known)}")
+    tasks = [known[t] for t in task_ids]
+
     if args.dry_run:
-        return do_dry_run(conditions)
-    return do_run(conditions, args.max_usd, args.timeout)
+        return do_dry_run(conditions, tasks)
+    return do_run(conditions, tasks, args.max_usd, args.timeout)
 
 
 if __name__ == "__main__":

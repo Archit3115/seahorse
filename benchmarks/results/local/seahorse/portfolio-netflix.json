@@ -1,0 +1,58 @@
+{
+  "task": "portfolio-netflix",
+  "stratum": "long",
+  "condition": "seahorse",
+  "entry_model": "claude-fable-5",
+  "wall_ms": 282777,
+  "exit_code": 0,
+  "timed_out": false,
+  "files_written": [
+    "index.html"
+  ],
+  "raw_stdout_head": "{\"type\":\"result\",\"subtype\":\"success\",\"is_error\":false,\"api_error_status\":null,\"duration_ms\":279802,\"duration_api_ms\":275070,\"ttft_ms\":3070,\"ttft_stream_ms\":1687,\"time_to_request_ms\":63,\"time_to_request_from_spawn_ms\":687246,\"warm_spare_claimed\":false,\"time_origin_ms\":1784716648871.2114,\"num_turns\":9,\"result\":\"Done \u2014 the full Seahorse loop ran end to end and the fix is saved to the working tree.\\n\\",
+  "check_ok": true,
+  "check_tail": "",
+  "parse_ok": true,
+  "billed_usd": 1.5706015000000002,
+  "priced_usd": 1.745935,
+  "priced_billed_usd": 1.5706015,
+  "tokens": {
+    "input": 36,
+    "output": 21587,
+    "cache_read": 327136,
+    "cache_creation": 67909,
+    "total": 416668
+  },
+  "per_model": {
+    "claude-fable-5": {
+      "priced_usd": 0.840336,
+      "billed_usd": 0.840336,
+      "input": 16,
+      "output": 4939,
+      "cache_read": 251606,
+      "cache_creation": 17081
+    },
+    "claude-opus-4-8": {
+      "priced_usd": 0.82048,
+      "billed_usd": 0.66805375,
+      "input": 12,
+      "output": 15583,
+      "cache_read": 48750,
+      "cache_creation": 40647
+    },
+    "claude-sonnet-5": {
+      "priced_usd": 0.085119,
+      "billed_usd": 0.06221175,
+      "input": 8,
+      "output": 1065,
+      "cache_read": 26780,
+      "cache_creation": 10181
+    }
+  },
+  "num_turns": 9,
+  "models_used": [
+    "claude-fable-5",
+    "claude-opus-4-8",
+    "claude-sonnet-5"
+  ]
+}
