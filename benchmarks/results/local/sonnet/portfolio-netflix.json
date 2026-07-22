@@ -1,0 +1,47 @@
+{
+  "task": "portfolio-netflix",
+  "stratum": "long",
+  "condition": "sonnet",
+  "entry_model": "claude-sonnet-5",
+  "wall_ms": 19625,
+  "exit_code": 0,
+  "timed_out": false,
+  "files_written": [],
+  "raw_stdout_head": "{\"type\":\"result\",\"subtype\":\"success\",\"is_error\":false,\"api_error_status\":null,\"duration_ms\":17424,\"duration_api_ms\":16297,\"ttft_ms\":6804,\"ttft_stream_ms\":1098,\"time_to_request_ms\":55,\"time_to_request_from_spawn_ms\":138715,\"warm_spare_claimed\":false,\"time_origin_ms\":1784716101368.822,\"num_turns\":2,\"result\":\"Empty directory, so I'll be building this from scratch. Before I dive in, I need a bit of re",
+  "check_ok": false,
+  "check_tail": "",
+  "parse_ok": true,
+  "billed_usd": 0.2428394,
+  "priced_usd": 0.24283939999999998,
+  "priced_billed_usd": 0.2428394,
+  "tokens": {
+    "input": 545,
+    "output": 904,
+    "cache_read": 35748,
+    "cache_creation": 36357,
+    "total": 73554
+  },
+  "per_model": {
+    "claude-haiku-4-5-20251001": {
+      "priced_usd": 0.000611,
+      "billed_usd": 0.000611,
+      "input": 541,
+      "output": 14,
+      "cache_read": 0,
+      "cache_creation": 0
+    },
+    "claude-sonnet-5": {
+      "priced_usd": 0.24222839999999998,
+      "billed_usd": 0.2422284,
+      "input": 4,
+      "output": 890,
+      "cache_read": 35748,
+      "cache_creation": 36357
+    }
+  },
+  "num_turns": 2,
+  "models_used": [
+    "claude-haiku-4-5-20251001",
+    "claude-sonnet-5"
+  ]
+}

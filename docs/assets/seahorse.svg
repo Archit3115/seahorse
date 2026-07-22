@@ -1,0 +1,73 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 480 480" width="480" height="480" role="img" aria-label="Seahorse — advisor to executor orchestration layer">
+  <defs>
+    <linearGradient id="sea" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#0ea5e9"/>
+      <stop offset="0.5" stop-color="#14b8a6"/>
+      <stop offset="1" stop-color="#7c3aed"/>
+    </linearGradient>
+    <linearGradient id="body" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#f59e0b"/>
+      <stop offset="0.55" stop-color="#ec4899"/>
+      <stop offset="1" stop-color="#7c3aed"/>
+    </linearGradient>
+    <radialGradient id="glow" cx="0.5" cy="0.42" r="0.6">
+      <stop offset="0" stop-color="#0b3b5a"/>
+      <stop offset="1" stop-color="#04121f"/>
+    </radialGradient>
+    <filter id="soft" x="-20%" y="-20%" width="140%" height="140%">
+      <feGaussianBlur stdDeviation="2.2"/>
+    </filter>
+  </defs>
+
+  <circle cx="240" cy="240" r="236" fill="url(#glow)"/>
+  <circle cx="240" cy="240" r="232" fill="none" stroke="url(#sea)" stroke-width="4" opacity="0.85"/>
+
+  <!-- drifting bubbles -->
+  <g fill="#14b8a6" opacity="0.45">
+    <circle cx="120" cy="360" r="6"/>
+    <circle cx="150" cy="320" r="4"/>
+    <circle cx="135" cy="285" r="3"/>
+    <circle cx="360" cy="150" r="7"/>
+    <circle cx="340" cy="110" r="4"/>
+    <circle cx="355" cy="85" r="2.5"/>
+  </g>
+
+  <!-- seahorse -->
+  <g transform="translate(196 96)">
+    <!-- curled tail + body spine, drawn as one flowing stroke -->
+    <path d="M40 12
+             C 92 6 120 44 108 92
+             C 100 128 66 140 60 176
+             C 55 208 78 232 84 262
+             C 90 292 70 318 44 330
+             C 22 340 4 330 2 308
+             C 0 288 16 276 32 284
+             C 44 290 42 306 30 308"
+          fill="none" stroke="url(#body)" stroke-width="26"
+          stroke-linecap="round" stroke-linejoin="round"/>
+
+    <!-- dorsal ridge fin -->
+    <path d="M104 70 q22 6 20 26 q-14 -8 -24 -4
+             M96 104 q22 8 18 28 q-14 -9 -24 -6
+             M84 140 q22 9 16 30 q-14 -10 -24 -8"
+          fill="none" stroke="#0ea5e9" stroke-width="6"
+          stroke-linecap="round" opacity="0.9"/>
+
+    <!-- crown -->
+    <path d="M40 12 q-8 -18 6 -26 M52 8 q0 -20 16 -22 M66 12 q8 -16 22 -12"
+          fill="none" stroke="#f59e0b" stroke-width="7" stroke-linecap="round"/>
+
+    <!-- snout -->
+    <path d="M36 26 q-30 4 -40 26 q22 -6 30 2"
+          fill="none" stroke="url(#body)" stroke-width="15" stroke-linecap="round"/>
+
+    <!-- eye -->
+    <circle cx="44" cy="34" r="8" fill="#04121f"/>
+    <circle cx="47" cy="31" r="3" fill="#fbbf24"/>
+
+    <!-- body armor plates -->
+    <g stroke="#04121f" stroke-width="2.5" opacity="0.35" fill="none" filter="url(#soft)">
+      <path d="M96 60 l16 8 M88 92 l16 8 M74 128 l16 8 M70 168 l16 6 M78 208 l16 6 M82 248 l14 8"/>
+    </g>
+  </g>
+</svg>
